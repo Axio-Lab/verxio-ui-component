@@ -10,17 +10,18 @@
   ],
   "scripts": {
     "dev": "next dev",
-    "build": "tsup",
-    "next:build": "next build",
+    "build:sdk": "tsup",
+    "build:next": "next build",
+    "build": "pnpm build:sdk && pnpm build:next",
     "next:start": "next start",
     "lint": "eslint src --ext .ts,.tsx",
     "clean": "rm -rf dist",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "pnpm build:sdk"
   },
   "peerDependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "@verxioprotocol/core": "^0.1.0"
+    "@verxioprotocol/core": "*"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
