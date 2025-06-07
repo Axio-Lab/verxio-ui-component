@@ -38,7 +38,7 @@ interface AssetData {
   }>
   rewards: string[]
   uri: string
-  broadcasts: {
+  broadcasts?: {
     broadcasts: Array<{
       content: string
       id: string
@@ -90,6 +90,7 @@ export default function GetAssetDataForm({
       }
 
       const result = await getAssetData(context, publicKey(data.passAddress))
+      console.log('result', result)
       setAssetData(result)
       if (result) {
         onSuccess?.(result)
@@ -252,7 +253,7 @@ export default function GetAssetDataForm({
             <div className="md:col-span-2 space-y-4">
               <h3 className="text-lg font-semibold text-gray-900">Broadcasts</h3>
               <div className="space-y-4">
-                {assetData.broadcasts.broadcasts.map((broadcast) => (
+                {assetData.broadcasts?.broadcasts?.map((broadcast) => (
                   <div key={broadcast.id} className="p-4 bg-gray-50 rounded-lg">
                     <div className="flex items-start justify-between">
                       <div className="space-y-2">
@@ -272,7 +273,7 @@ export default function GetAssetDataForm({
                     </div>
                   </div>
                 ))}
-                {assetData.broadcasts.broadcasts.length === 0 && (
+                {(!assetData.broadcasts?.broadcasts || assetData.broadcasts.broadcasts.length === 0) && (
                   <p className="text-gray-500 text-center py-4">No broadcasts yet</p>
                 )}
               </div>
@@ -302,7 +303,7 @@ export default function GetAssetDataForm({
                     </div>
                   </div>
                 ))}
-                {assetData.messageHistory?.length === 0 && (
+                {(!assetData.messageHistory || assetData.messageHistory.length === 0) && (
                   <p className="text-gray-500 text-center py-4">No messages yet</p>
                 )}
               </div>
